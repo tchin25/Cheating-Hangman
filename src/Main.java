@@ -8,10 +8,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		importWords();
+		userInput();
 		
-		for(Word word : dict) {
-			System.out.println(word.s + " : " + word.length);
-		}
 
 	}
 	
@@ -66,4 +64,26 @@ public class Main {
 		
 		return families.get(index);
 	}
+	public static Set<Word> userInput() {
+		Set<Word> setOfWords = new HashSet<Word>();
+
+		int wordLength;
+
+		System.out.println("Please enter the word length:");
+		Scanner kb = new Scanner(System.in);
+
+		wordLength = kb.nextInt();
+
+		for (Word word : dict) {
+			if (word.length == wordLength) {
+				setOfWords.add(word);
+
+				//System.out.println(word.s + " : " + word.length);
+			}
+		}
+		return setOfWords;
+
+
+	}
+
 }
