@@ -8,16 +8,25 @@ public class Main {
 	
 	public static void main(String[] args) {
 		importWords();
-		userInput();
+		Set<Word> x = userInput();
 		
-
+		for(Word w : x) {
+			System.out.println( w.s + " : " + w.length);
+		}
+		System.out.println("---------------------");
+		Set<Word> y = sortFamily(x, 'a');
+		
+		for(Word w : y) {
+			System.out.println( w.s + " : " + w.length);
+		}
+		
 	}
 	
 	//Import Dictionary into set
 	public static void importWords() {
 		Scanner in;
 		try {
-			in = new Scanner(new File("Dictionary.txt"));
+			in = new Scanner(new File("test.txt"));
 			while (in.hasNextLine()) {
 				String s = in.nextLine();
 				dict.add(new Word(s));
@@ -30,6 +39,10 @@ public class Main {
 	
 	public static Set<Word> sortFamily(Set<Word> w, char guess) {
 		ArrayList<Set<Word>> families = new ArrayList<Set<Word>>();
+		//families.ensureCapacity(8);
+		for (int i = 0; i < 8; i++) {
+			families.add(null);
+		}
 		for(Word word : w) {
 			
 			int counter = 0; // counter for number of char in word
@@ -49,6 +62,10 @@ public class Main {
 			
 		}
 		
+		for(int i = 0; i < families.size(); i++) {
+			System.out.println(families.get(i));
+		}
+		
 		
 		//outputs largest set in families
 		int size = 0;
@@ -64,6 +81,7 @@ public class Main {
 		
 		return families.get(index);
 	}
+	
 	public static Set<Word> userInput() {
 		Set<Word> setOfWords = new HashSet<Word>();
 
