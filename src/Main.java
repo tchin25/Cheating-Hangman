@@ -7,16 +7,21 @@ public class Main {
 	static Set<String> dict = new HashSet<String>(); 
 	
 	public static void main(String[] args) {
-		System.out.println("Hello Thomas");
+		importWords();
 
 	}
 	
 	//Import Dictionary into set
-	public static void importWords() throws FileNotFoundException {
-		Scanner in = new Scanner(new File("Dictionary.txt"));
-		
-		while (in.hasNextLine()) {
-			dict.add(in.nextLine());
+	public static void importWords() {
+		Scanner in;
+		try {
+			in = new Scanner(new File("Dictionary.txt"));
+			while (in.hasNextLine()) {
+				dict.add(in.nextLine());
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+			//e.printStackTrace();
 		}
 	}
 }
