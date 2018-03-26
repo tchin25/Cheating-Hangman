@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
 
-	static Set<String> dict = new HashSet<String>(); 
+	static Map<String, Integer> dict = new HashMap<String, Integer>(); 
 	
 	public static void main(String[] args) {
 		importWords();
@@ -17,7 +17,8 @@ public class Main {
 		try {
 			in = new Scanner(new File("Dictionary.txt"));
 			while (in.hasNextLine()) {
-				dict.add(in.nextLine());
+				String s = in.nextLine();
+				dict.put(s, s.length());
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
