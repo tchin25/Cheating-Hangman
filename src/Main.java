@@ -7,7 +7,9 @@ public class Main {
 	static Set<Word> dict = new HashSet<Word>(); 
 	
 	public static void main(String[] args) {
-		importWords();
+		if (!importWords())
+			return;
+		
 		Set<Word> x = userInput();
 		
 		for(Word w : x) {
@@ -23,17 +25,19 @@ public class Main {
 	}
 	
 	//Import Dictionary into set
-	public static void importWords() {
-		Scanner in;
+	public static boolean importWords() {
 		try {
-			in = new Scanner(new File("test.txt"));
+			Scanner in = new Scanner(new File("test.txt"));
 			while (in.hasNextLine()) {
 				String s = in.nextLine();
 				dict.add(new Word(s));
 			}
+			in.close();
+			return true;
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 			//e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -69,7 +73,21 @@ public class Main {
 			}
 		}
 		
+		//System.out.println(families.entrySet());
+		
+		//returns largest set
 		return families.get(index);
+	}
+	
+	/*****************
+	TODO: Create method that takes a set and guessed letter and sorts it by location of guessed letter within each word
+	*	  Returns a set with the largest selection of words to cheat on
+	*	  This method and sortFamily should feed into each other with guesses until guesses loses or there's 2 words left,
+	*	  which is then handled in another method so that the guesser always guesses incorrectly
+	*****************/
+	public static Set<Word> sortNumChar(Set<Word> w, char guess){
+		
+		return null;
 	}
 	
 	public static Set<Word> userInput() {
