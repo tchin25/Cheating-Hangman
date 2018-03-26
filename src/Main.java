@@ -38,11 +38,7 @@ public class Main {
 	}
 	
 	public static Set<Word> sortFamily(Set<Word> w, char guess) {
-		ArrayList<Set<Word>> families = new ArrayList<Set<Word>>();
-		//families.ensureCapacity(8);
-		for (int i = 0; i < 8; i++) {
-			families.add(null);
-		}
+		Map<Integer, Set<Word>> families = new HashMap<Integer, Set<Word>>();
 		for(Word word : w) {
 			
 			int counter = 0; // counter for number of char in word
@@ -53,8 +49,8 @@ public class Main {
 			}
 			
 			//inserts words into family groups
-			if (families.get(counter) == null) {
-				families.add(counter, new HashSet<Word>());
+			if (!families.containsKey(counter)) {
+				families.put(counter, new HashSet<Word>());
 				families.get(counter).add(word);
 			}else {
 				families.get(counter).add(word);
@@ -62,20 +58,14 @@ public class Main {
 			
 		}
 		
-		for(int i = 0; i < families.size(); i++) {
-			System.out.println(families.get(i));
-		}
-		
 		
 		//outputs largest set in families
 		int size = 0;
 		int index = 0;
-		for (int i = 0; i < families.size(); i++) {
-			if (families.get(i) != null) {
-				if (families.get(i).size() > size) {
-					size = families.get(i).size();
-					index = i;
-				}
+		for(Map.Entry<Integer, Set<Word>> k : families.entrySet()) {
+			if (k.getValue().size() > size) {
+				index = k.getKey();
+				size = k.getValue().size();
 			}
 		}
 		
