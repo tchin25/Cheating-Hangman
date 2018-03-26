@@ -15,7 +15,7 @@ public class Main {
 
 	}
 	
-	//Import Dictionary into map
+	//Import Dictionary into set
 	public static void importWords() {
 		Scanner in;
 		try {
@@ -28,5 +28,42 @@ public class Main {
 			System.out.println("File not found");
 			//e.printStackTrace();
 		}
+	}
+	
+	public static Set<Word> sortFamily(Set<Word> w, char guess) {
+		ArrayList<Set<Word>> families = new ArrayList<Set<Word>>();
+		for(Word word : w) {
+			
+			int counter = 0; // counter for number of char in word
+			for (int i = 0; i < word.length; i++) {
+				if (word.s.charAt(i) == guess) {
+					counter++;
+				}
+			}
+			
+			//inserts words into family groups
+			if (families.get(counter) == null) {
+				families.add(counter, new HashSet<Word>());
+				families.get(counter).add(word);
+			}else {
+				families.get(counter).add(word);
+			}
+			
+		}
+		
+		
+		//outputs largest set in families
+		int size = 0;
+		int index = 0;
+		for (int i = 0; i < families.size(); i++) {
+			if (families.get(i) != null) {
+				if (families.get(i).size() > size) {
+					size = families.get(i).size();
+					index = i;
+				}
+			}
+		}
+		
+		return families.get(index);
 	}
 }
