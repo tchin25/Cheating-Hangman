@@ -4,30 +4,34 @@ import java.util.*;
 
 public class Main {
 
-	static Set<Word> dict = new HashSet<Word>(); 
-	
+
+	static Set<Word> dict = new HashSet<Word>();
+
 	public static void main(String[] args) {
 		if (!importWords())
 			return;
-		
+
 		Set<Word> x = userInput();
-		
-		for(Word w : x) {
+
+		for (Word w : x) {
 			System.out.println(w);
 		}
 		System.out.println("---------------------");
-		Set<Word> y = sortFamily(x, 'a');
-		
-		for(Word w : y) {
+
+
+		Set<Word> y = sortFamily(x, 'e');
+
+		for (Word w : y) {
 			System.out.println(w);
 		}
-		
+		sortNumChar(y, 'e');
+
 	}
-	
+
 	//Import Dictionary into set
 	public static boolean importWords() {
 		try {
-			Scanner in = new Scanner(new File("test.txt"));
+			Scanner in = new Scanner(new File("dictionary.txt"));
 			while (in.hasNextLine()) {
 				String s = in.nextLine();
 				dict.add(new Word(s));
@@ -40,73 +44,99 @@ public class Main {
 			return false;
 		}
 	}
-	
+
 	public static Set<Word> sortFamily(Set<Word> w, char guess) {
 		Map<Integer, Set<Word>> families = new HashMap<Integer, Set<Word>>();
-		for(Word word : w) {
-			
+		for (Word word : w) {
+
 			int counter = 0; // counter for number of char in word
 			for (int i = 0; i < word.length; i++) {
 				if (word.s.charAt(i) == guess) {
 					counter++;
 				}
 			}
-			
+
 			//inserts words into family groups
 			if (!families.containsKey(counter)) {
 				families.put(counter, new HashSet<Word>());
 			}
 			families.get(counter).add(word);
 		}
-		
+
 		//outputs largest set in families
 		int size = 0;
 		int index = 0;
-		for(Map.Entry<Integer, Set<Word>> k : families.entrySet()) {
+		for (Map.Entry<Integer, Set<Word>> k : families.entrySet()) {
 			if (k.getValue().size() > size) {
 				index = k.getKey();
 				size = k.getValue().size();
 			}
 		}
-		
+
 		//System.out.println(families.entrySet());
-		
+
 		//returns largest set
 		return families.get(index);
 	}
-	
+
 	/*****************
-	TODO: Create method that takes a set and guessed letter and sorts it by location of guessed letter within each word
-	*	  Returns a set with the largest selection of words to cheat on
-	*	  DOESN"T DO ANYTHING IF THE GUESSED LETTER ISN'T WITHIN THE SET OF WORDS
-	*	  This method and sortFamily should feed into each other with guesses until guesses loses or there's 2 words left,
-	*	  which is then handled in another method so that the guesser always guesses incorrectly
-	*****************/
-	public static Set<Word> sortNumChar(Set<Word> w, char guess){
-		
+	 TODO: Create method that takes a set and guessed letter and sorts it by location of guessed letter within each word
+	 *	  Returns a set with the largest selection of words to cheat on
+	 *	  DOESN"T DO ANYTHING IF THE GUESSED LETTER ISN'T WITHIN THE SET OF WORDS
+	 *	  This method and sortFamily should feed into each other with guesses until guesses loses or there's 2 words left,
+	 *	  which is then handled in another method so that the guesser always guesses incorrectly
+	 *****************/
+	public static Set<Word> sortNumChar(Set<Word> w, char guess) {
+		//test how many times char shows up
+		Set<Word> letterPosition = new HashSet<Word>();
+
+		for (Word word : w) {
+			ArrayList<Integer> positions = new ArrayList<Integer>();
+
+			char letters[] = word.s.toCharArray();
+			for (int i = 0; i < word.length; i++) {
+				System.out.println(letters[i]);
+				if (letters[i] == guess)
+				{
+					//System.out.println(letters[i]);
+					positions.add(i);
+				}
+				if (positions.isEmpty()){
+					return w;
+
+				}else{
+
+				}
+
+
+			}
+
+			System.out.println(positions);
+		}
+
 		return null;
 	}
-	
-	public static Set<Word> userInput() {
-		Set<Word> setOfWords = new HashSet<Word>();
 
-		int wordLength;
+		public static Set<Word> userInput () {
+			Set<Word> setOfWords = new HashSet<Word>();
 
-		System.out.println("Please enter the word length:");
-		Scanner kb = new Scanner(System.in);
+			int wordLength;
 
-		wordLength = kb.nextInt();
+			System.out.println("Please enter the word length:");
+			Scanner kb = new Scanner(System.in);
 
-		for (Word word : dict) {
-			if (word.length == wordLength) {
-				setOfWords.add(word);
+			wordLength = kb.nextInt();
 
-				//System.out.println(word.s + " : " + word.length);
+			for (Word word : dict) {
+				if (word.length == wordLength) {
+					setOfWords.add(word);
+
+					//System.out.println(word.s + " : " + word.length);
+				}
 			}
-		}
-		return setOfWords;
+			return setOfWords;
 
+
+		}
 
 	}
-
-}
