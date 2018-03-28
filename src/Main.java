@@ -19,19 +19,19 @@ public class Main {
 		System.out.println("---------------------");
 
 
-		Set<Word> y = sortFamily(x, 'e');
+		Set<Word> y = sortFamily(x, 'a');
 
 		for (Word w : y) {
 			System.out.println(w);
 		}
-		sortNumChar(y, 'e');
+		sortNumChar(y, 'a');
 
 	}
 
 	//Import Dictionary into set
 	public static boolean importWords() {
 		try {
-			Scanner in = new Scanner(new File("dictionary.txt"));
+			Scanner in = new Scanner(new File("test.txt"));
 			while (in.hasNextLine()) {
 				String s = in.nextLine();
 				dict.add(new Word(s));
@@ -88,32 +88,42 @@ public class Main {
 	 *****************/
 	public static Set<Word> sortNumChar(Set<Word> w, char guess) {
 		//test how many times char shows up
-		Set<Word> letterPosition = new HashSet<Word>();
+		Map<ArrayList<Integer>, Set<Word>> letterPosition = new HashMap<ArrayList<Integer>, Set<Word>>();
 
 		for (Word word : w) {
 			ArrayList<Integer> positions = new ArrayList<Integer>();
 
 			char letters[] = word.s.toCharArray();
 			for (int i = 0; i < word.length; i++) {
-				System.out.println(letters[i]);
+				//System.out.println(letters[i]);
 				if (letters[i] == guess)
 				{
 					//System.out.println(letters[i]);
 					positions.add(i);
 				}
-				if (positions.isEmpty()){
-					return w;
-
-				}else{
-
-				}
-
 
 			}
 
-			System.out.println(positions);
-		}
+            if (positions.isEmpty()){
+                return w;
 
+            }else{
+                if(!letterPosition.containsKey(positions)) {
+                    letterPosition.put(positions, new HashSet<Word>());
+                }
+                for (Map.Entry<ArrayList<Integer>, Set<Word>> k : letterPosition.entrySet()) {
+                    if (k.getKey().equals(positions)){
+                        letterPosition.get(k.getKey()).add(word);
+                    }
+                }
+            }
+
+
+
+            //System.out.println(positions);
+
+		}
+        System.out.println(letterPosition.values());
 		return null;
 	}
 
