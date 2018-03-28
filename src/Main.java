@@ -13,13 +13,13 @@ public class Main {
 		Set<Word> x = userInput();
 		
 		for(Word w : x) {
-			System.out.println( w.s + " : " + w.length);
+			System.out.println(w);
 		}
 		System.out.println("---------------------");
 		Set<Word> y = sortFamily(x, 'a');
 		
 		for(Word w : y) {
-			System.out.println( w.s + " : " + w.length);
+			System.out.println(w);
 		}
 		
 	}
@@ -78,6 +78,7 @@ public class Main {
 	/*****************
 	TODO: Create method that takes a set and guessed letter and sorts it by location of guessed letter within each word
 	*	  Returns a set with the largest selection of words to cheat on
+	*	  DOESN"T DO ANYTHING IF THE GUESSED LETTER ISN'T WITHIN THE SET OF WORDS
 	*	  This method and sortFamily should feed into each other with guesses until guesses loses or there's 2 words left,
 	*	  which is then handled in another method so that the guesser always guesses incorrectly
 	*****************/

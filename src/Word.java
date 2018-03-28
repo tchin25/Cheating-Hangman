@@ -7,4 +7,8 @@
 			this.s = s;
 			length = s.length();
 		}
+		
+		public String toString() {
+			return s + " : " + length;
+		}
 	}
