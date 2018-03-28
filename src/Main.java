@@ -111,20 +111,29 @@ public class Main {
                 if(!letterPosition.containsKey(positions)) {
                     letterPosition.put(positions, new HashSet<Word>());
                 }
-                for (Map.Entry<ArrayList<Integer>, Set<Word>> k : letterPosition.entrySet()) {
-                    if (k.getKey().equals(positions)){
-                        letterPosition.get(k.getKey()).add(word);
-                    }
-                }
+                letterPosition.get(positions).add(word);
+//                for (Map.Entry<ArrayList<Integer>, Set<Word>> k : letterPosition.entrySet()) {
+//                    if (k.getKey().equals(positions)){
+//                        letterPosition.get(k.getKey()).add(word);
+//                    }
+//                }
             }
-
-
+            
 
             //System.out.println(positions);
 
 		}
         System.out.println(letterPosition.values());
-		return null;
+        ArrayList<Integer> key = new ArrayList<Integer>();
+        int size = 0;
+        for (Map.Entry<ArrayList<Integer>, Set<Word>> k : letterPosition.entrySet()) {
+        	if (k.getValue().size() > size) {
+        		size = k.getValue().size();
+        		key = k.getKey();
+        	}
+        	
+        }
+		return letterPosition.get(key);
 	}
 
 		public static Set<Word> userInput () {
