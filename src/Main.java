@@ -55,13 +55,9 @@ public class Main {
 			//inserts words into family groups
 			if (!families.containsKey(counter)) {
 				families.put(counter, new HashSet<Word>());
-				families.get(counter).add(word);
-			}else {
-				families.get(counter).add(word);
 			}
-			
+			families.get(counter).add(word);
 		}
-		
 		
 		//outputs largest set in families
 		int size = 0;
