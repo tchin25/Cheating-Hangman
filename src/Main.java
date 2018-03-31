@@ -210,6 +210,7 @@ public class Main {
                     x = sortFamily(x, guess);
                     x = sortNumChar(x, guess);
                 }
+                
             }
         }
 
