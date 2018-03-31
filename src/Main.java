@@ -98,7 +98,7 @@ public class Main {
             //System.out.println(positions);
 
         }
-        System.out.println(letterPosition.values());
+        //System.out.println(letterPosition.values());
         ArrayList<Integer> key = new ArrayList<Integer>();
         int size = 0;
         for (Map.Entry<ArrayList<Integer>, Set<Word>> k : letterPosition.entrySet()) {
@@ -108,7 +108,7 @@ public class Main {
             }
 
         }
-        System.out.println(letterPosition.get(key));
+        //System.out.println(letterPosition.get(key));
         return letterPosition.get(key);
     }
 
@@ -210,7 +210,7 @@ public class Main {
                     x = sortFamily(x, guess);
                     x = sortNumChar(x, guess);
                 }
-                
+
             }
         }
 
