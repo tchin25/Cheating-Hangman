@@ -140,7 +140,7 @@ public class Main {
      */
     public static Set<Word> lastChoices(Set<Word> words, char guess) {
         if (words.size() != 2) {
-            return null;
+            return words;
         } else if (words.size() == 1) {
             return words;
         }
@@ -154,7 +154,7 @@ public class Main {
             }
         }
 
-        return null;
+        return words;
     }
 
     public static void guessingGUI(Set<Word> word, int numGuesses) {
