@@ -205,7 +205,23 @@ public class Main {
         for (int i = 0; guesses > i; guesses--) {
             System.out.println(x);
             if (x.size() == 1) { //TODO: if there's still letters left, switch to normal hangman
-                System.out.println(x);
+                    for (int j = 0; guesses > j; guesses--){
+                        System.out.println("Enter a guess:");
+                        guess = in.next().charAt(0);
+
+                        guessingGUI(x, guess);
+
+                        boolean isFilled = true;
+                        for (int k = 0; k < underScores.length; k++){
+                            if (underScores[i] == '_'){
+                                isFilled = false;
+                            }
+                        }
+                        if (isFilled){
+                            System.out.println("You won. Yay.");
+                            break;
+                        }
+                    }
                 break;
             } else {
                 System.out.println("Enter a guess:");
