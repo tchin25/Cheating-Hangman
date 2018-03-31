@@ -108,6 +108,7 @@ public class Main {
             }
 
         }
+        System.out.println(letterPosition.get(key));
         return letterPosition.get(key);
     }
 
