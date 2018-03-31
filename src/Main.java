@@ -135,6 +135,14 @@ public class Main {
 
     }
 
+    /*
+    TODO: If there's only 2 words left in the set, pick the one that always makes the guesser guess wrong
+     */
+
+    /*
+    TODO: Make GUI underscores for hangman, update to reflect guesses
+     */
+
     public static void menu() {
 
 
