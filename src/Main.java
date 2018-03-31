@@ -98,7 +98,7 @@ public class Main {
             //System.out.println(positions);
 
         }
-        //System.out.println(letterPosition.values());
+        System.out.println(letterPosition.values());
         ArrayList<Integer> key = new ArrayList<Integer>();
         int size = 0;
         for (Map.Entry<ArrayList<Integer>, Set<Word>> k : letterPosition.entrySet()) {
@@ -108,7 +108,7 @@ public class Main {
             }
 
         }
-        //System.out.println(letterPosition.get(key));
+        System.out.println(letterPosition.get(key));
         return letterPosition.get(key);
     }
 
@@ -138,16 +138,16 @@ public class Main {
     /*
     TODO: If there's only 2 words left in the set, pick the one that always makes the guesser guess wrong
      */
-    public static Set<Word> lastChoices(Set<Word> words, char guess){
-        if (words.size() != 2){
+    public static Set<Word> lastChoices(Set<Word> words, char guess) {
+        if (words.size() != 2) {
             return null;
-        }else if (words.size() == 1){
+        } else if (words.size() == 1) {
             return words;
         }
 
-        for (Word w: words){
-            for (int i = 0; i < w.length; i++){
-                if (w.s.indexOf(i) == guess){
+        for (Word w : words) {
+            for (int i = 0; i < w.length; i++) {
+                if (w.s.indexOf(i) == guess) {
                     words.remove(w);
                     return words;
                 }
@@ -156,6 +156,32 @@ public class Main {
 
         return null;
     }
+
+    public static void guessingGUI(Set<Word> word, int numGuesses) {
+        int size = 0;
+        for (Word w : word) {
+            size = w.length;
+        }
+        StringBuilder build = new StringBuilder();
+
+
+        for (int i = 0; i < size; i++) {
+            build.append("_ ");
+        }
+
+
+        System.out.println(build);
+        char n[] = build.toString().toCharArray();
+
+
+        for (int i = 0; i < n.length; i++) {
+            System.out.println(n[i]);
+        }
+    }
+
+
+
+
 
     /*
     TODO: Make GUI underscores for hangman, update to reflect guesses. Error check to make sure they can't guess same letter twice
@@ -170,40 +196,39 @@ public class Main {
         System.out.println("How many guesses?");
         int guesses = in.nextInt(); //TODO: Error check
         char guess = ' ';
-        for (int i = 0; guess > i; guess--){
+        for (int i = 0; guess > i; guess--) {
             System.out.println(x);
-            if (x.size() == 1){ //TODO: if there's still letters left, switch to normal hangman
+            if (x.size() == 1) { //TODO: if there's still letters left, switch to normal hangman
                 System.out.println(x);
                 break;
-            }else{
+            } else {
                 System.out.println("Enter a guess:");
                 guess = in.next().charAt(0);
-                if (x.size() == 2){
+                if (x.size() == 2) {
                     x = lastChoices(x, guess);
-                }else {
+                } else {
                     x = sortFamily(x, guess);
                     x = sortNumChar(x, guess);
                 }
             }
         }
-        if (guesses == 0){
-            System.out.println("You ran out of guesses!");
+        System.out.println("---------------------");
+
+
+        Set<Word> y = sortFamily(x, 'a');
+
+        for (Word w : y) {
+            System.out.println(w);
         }
+        sortNumChar(y, 'a');
+        guessingGUI(x, 3);
 
-
-//        for (Word w : x) {
-//            System.out.println(w);
-//        }
-//        System.out.println("---------------------");
-//
-//
-//        Set<Word> y = sortFamily(x, 'a');
-//
-//        for (Word w : y) {
-//            System.out.println(w);
-//        }
-//        y = sortNumChar(y, 'a');
 
     }
 
 }
+
+
+
+
+
