@@ -138,6 +138,9 @@ public class Main {
     /*
     TODO: If there's only 2 words left in the set, pick the one that always makes the guesser guess wrong
      */
+    public static Set<Word> lastChoices(Set<Word> words, char guess){
+        return null;
+    }
 
     /*
     TODO: Make GUI underscores for hangman, update to reflect guesses
