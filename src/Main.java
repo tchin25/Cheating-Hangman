@@ -196,7 +196,7 @@ public class Main {
         System.out.println("How many guesses?");
         int guesses = in.nextInt(); //TODO: Error check
         char guess = ' ';
-        for (int i = 0; guess > i; guess--) {
+        for (int i = 0; guesses > i; guesses--) {
             System.out.println(x);
             if (x.size() == 1) { //TODO: if there's still letters left, switch to normal hangman
                 System.out.println(x);
@@ -212,6 +212,8 @@ public class Main {
                 }
             }
         }
+
+        /*
         System.out.println("---------------------");
 
 
@@ -222,7 +224,7 @@ public class Main {
         }
         sortNumChar(y, 'a');
         guessingGUI(x, 3);
-
+*/
 
     }
 
