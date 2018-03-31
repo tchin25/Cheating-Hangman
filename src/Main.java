@@ -60,8 +60,6 @@ public class Main {
             }
         }
 
-        //System.out.println(families.entrySet());
-
         //returns largest set
         return families.get(index);
     }
@@ -95,11 +93,8 @@ public class Main {
 
             }
 
-
-            //System.out.println(positions);
-
         }
-        //System.out.println(letterPosition.values());
+
         ArrayList<Integer> key = new ArrayList<Integer>();
         int size = 0;
         for (Map.Entry<ArrayList<Integer>, Set<Word>> k : letterPosition.entrySet()) {
@@ -132,7 +127,6 @@ public class Main {
         //underScores = new char[build.toString().length()-1];
         underScores = build.toString().toCharArray().clone();
 
-
         for (Word word : dict) {
             if (word.length == wordLength) {
                 setOfWords.add(word);
@@ -141,7 +135,6 @@ public class Main {
             }
         }
         return setOfWords;
-
 
     }
 
@@ -173,7 +166,6 @@ public class Main {
         for (Word w : words) {
             size = w.length;
             check = w.s;
-
         }
 
         char letters[] = check.toCharArray();
@@ -181,15 +173,10 @@ public class Main {
         for(int i = 0; i < size; i++){
             if(guess == letters[i]) {
                 underScores[i] = guess;
-
             }
-
-
-
 
         }
         System.out.println(underScores);
-
 
     }
 
@@ -205,7 +192,7 @@ public class Main {
         for (int i = 0; guesses > i; guesses--) {
             System.out.println(x);
             if (x.size() == 1) { //TODO: if there's still letters left, switch to normal hangman
-                    for (int j = 0; guesses > j; guesses--){
+                    for (int j = 0; guesses > j; guesses--){ //TODO: catch if already guesses a letter
                         System.out.println("Enter a guess:");
                         guess = in.next().charAt(0);
 
@@ -226,13 +213,10 @@ public class Main {
             } else {
                 System.out.println("Enter a guess:");
                 guess = in.next().charAt(0);
-                if (x.size() == 2) { //crashes when set is 2
-                    System.out.println("last choice");
+                if (x.size() == 2) {
                     x = lastChoices(x, guess);
                 } else {
-                    System.out.println("fam");
                     x = sortFamily(x, guess);
-                    System.out.println("numchar");
                     x = sortNumChar(x, guess);
                 }
                 System.out.println(x.size());
@@ -240,20 +224,6 @@ public class Main {
 
             }
         }
-
-        /*
-        System.out.println("---------------------");
-
-
-        Set<Word> y = sortFamily(x, 'a');
-
-        for (Word w : y) {
-            System.out.println(w);
-        }
-        sortNumChar(y, 'a');
-        guessingGUI(x, 3);
-*/
-
     }
 
 }
