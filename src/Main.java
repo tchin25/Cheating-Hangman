@@ -139,13 +139,19 @@ public class Main {
     TODO: If there's only 2 words left in the set, pick the one that always makes the guesser guess wrong
      */
     public static Set<Word> lastChoices(Set<Word> words, char guess){
+        if (words.size() != 2){
+            return null;
+        }
+
         for (Word w: words){
             for (int i = 0; i < w.length; i++){
-                if (i.charAt(i) == guess){
-
+                if (w.s.indexOf(i) == guess){
+                    words.remove(w);
+                    return words;
                 }
             }
         }
+
         return null;
     }
 
