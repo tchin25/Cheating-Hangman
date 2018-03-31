@@ -146,7 +146,7 @@ public class Main {
     }
 
     /*
-    TODO: If there's only 2 words left in the set, pick the one that always makes the guesser guess wrong
+    If there's only 2 words left in the set, pick the one that always makes the guesser guess wrong
      */
     public static Set<Word> lastChoices(Set<Word> words, char guess) {
         if (words.size() != 2) {
@@ -157,7 +157,7 @@ public class Main {
 
         for (Word w : words) {
             for (int i = 0; i < w.length; i++) {
-                if (w.s.indexOf(i) == guess) {
+                if (w.s.charAt(i) == guess) {
                     words.remove(w);
                     return words;
                 }
@@ -193,13 +193,6 @@ public class Main {
 
     }
 
-
-
-
-    /*
-    TODO: Make GUI underscores for hangman, update to reflect guesses. Error check to make sure they can't guess same letter twice
-     */
-
     public static void menu() {
         Scanner in = new Scanner(System.in);
         if (!importWords())
@@ -217,13 +210,16 @@ public class Main {
             } else {
                 System.out.println("Enter a guess:");
                 guess = in.next().charAt(0);
-                if (x.size() == 2) {
+                if (x.size() == 2) { //crashes when set is 2
+                    System.out.println("last choice");
                     x = lastChoices(x, guess);
                 } else {
+                    System.out.println("fam");
                     x = sortFamily(x, guess);
+                    System.out.println("numchar");
                     x = sortNumChar(x, guess);
                 }
-
+                System.out.println(x.size());
                 guessingGUI(x, guess);
 
             }

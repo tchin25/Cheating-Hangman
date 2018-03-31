@@ -22,3 +22,4 @@
 hs_err_pid*
 /bin/
 .idea/workspace.xml
+*.xml
