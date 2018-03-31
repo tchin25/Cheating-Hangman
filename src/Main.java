@@ -6,6 +6,7 @@ public class Main {
 
 
     static Set<Word> dict = new HashSet<Word>();
+    static char underScores[];
 
 
     public static void main(String[] args) {
@@ -16,7 +17,7 @@ public class Main {
     //Import Dictionary into set
     public static boolean importWords() {
         try {
-            Scanner in = new Scanner(new File("test.txt"));
+            Scanner in = new Scanner(new File("dictionary.txt"));
             while (in.hasNextLine()) {
                 String s = in.nextLine();
                 dict.add(new Word(s));
@@ -116,12 +117,21 @@ public class Main {
     public static Set<Word> userInput() {
         Set<Word> setOfWords = new HashSet<Word>();
 
-        int wordLength;
+        int wordLength = 0;
 
         System.out.println("Please enter the word length:");
         Scanner kb = new Scanner(System.in);
-
         wordLength = kb.nextInt();
+
+        StringBuilder build = new StringBuilder();
+
+        for (int i = 0; i < wordLength; i++) {
+            build.append("_");
+        }
+
+        //underScores = new char[build.toString().length()-1];
+        underScores = build.toString().toCharArray().clone();
+
 
         for (Word word : dict) {
             if (word.length == wordLength) {
@@ -157,28 +167,31 @@ public class Main {
         return null;
     }
 
-    public static void guessingGUI(Set<Word> word, int numGuesses) {
+    public static void guessingGUI(Set<Word> words, char guess) {
         int size = 0;
-        for (Word w : word) {
+        String check = "";
+        for (Word w : words) {
             size = w.length;
-        }
-        StringBuilder build = new StringBuilder();
+            check = w.s;
 
-
-        for (int i = 0; i < size; i++) {
-            build.append("_ ");
         }
 
+        char letters[] = check.toCharArray();
 
-        System.out.println(build);
-        char n[] = build.toString().toCharArray();
+        for(int i = 0; i < size; i++){
+            if(guess == letters[i]) {
+                underScores[i] = guess;
+
+            }
 
 
-        for (int i = 0; i < n.length; i++) {
-            System.out.println(n[i]);
+
+
         }
+        System.out.println(underScores);
+
+
     }
-
 
 
 
@@ -210,6 +223,8 @@ public class Main {
                     x = sortFamily(x, guess);
                     x = sortNumChar(x, guess);
                 }
+
+                guessingGUI(x, guess);
 
             }
         }
