@@ -116,6 +116,10 @@ public class Main {
 
         System.out.println("Please enter the word length:");
         Scanner kb = new Scanner(System.in);
+        while (!kb.hasNextInt()) {
+            System.out.println("Error: not a number. Please try again.");
+            kb.next();
+        }
         wordLength = kb.nextInt();
 
         StringBuilder build = new StringBuilder();
@@ -187,14 +191,21 @@ public class Main {
 
         Set<Word> x = userInput();
         System.out.println("How many guesses?");
-        int guesses = in.nextInt(); //TODO: Error check
+        int guesses = 0;
+
+        while (!in.hasNextInt()) {
+            System.out.println("Error: not a number. Please try again.");
+            in.next();
+        }
+        guesses = in.nextInt();
+
         char guess = ' ';
         for (int i = 0; guesses > i; guesses--) {
             System.out.println(x);
             if (x.size() == 1) { //TODO: if there's still letters left, switch to normal hangman
                     for (int j = 0; guesses > j; guesses--){ //TODO: catch if already guesses a letter
                         System.out.println("Enter a guess:");
-                        guess = in.next().charAt(0);
+                        guess = in.next().trim().charAt(0);
 
                         guessingGUI(x, guess);
 
@@ -212,7 +223,7 @@ public class Main {
                 break;
             } else {
                 System.out.println("Enter a guess:");
-                guess = in.next().charAt(0);
+                guess = in.next().trim().charAt(0);
                 if (x.size() == 2) {
                     x = lastChoices(x, guess);
                 } else {
@@ -222,7 +233,7 @@ public class Main {
                 System.out.println(x.size());
                 guessingGUI(x, guess);
 
-            }
+            } //TODO: Tell the person they lost
         }
     }
 
