@@ -32,9 +32,9 @@ public class Main {
     }
 
 
-    public static Set<Word> sortFamily(Set<Word> w, char guess) {
+    public static Set<Word> sortFamily(Set<Word> words, char guess) {
         Map<Integer, Set<Word>> families = new HashMap<Integer, Set<Word>>();
-        for (Word word : w) {
+        for (Word word : words) {
 
             int counter = 0; // counter for number of char in word
             for (int i = 0; i < word.length; i++) {
@@ -65,11 +65,11 @@ public class Main {
     }
 
 
-    public static Set<Word> sortNumChar(Set<Word> w, char guess) {
+    public static Set<Word> sortNumChar(Set<Word> words, char guess) {
         //test how many times char shows up
         Map<ArrayList<Integer>, Set<Word>> letterPosition = new HashMap<ArrayList<Integer>, Set<Word>>();
 
-        for (Word word : w) {
+        for (Word word : words) {
             ArrayList<Integer> positions = new ArrayList<Integer>();
 
             char letters[] = word.s.toCharArray();
@@ -83,7 +83,7 @@ public class Main {
             }
 
             if (positions.isEmpty()) {
-                return w;
+                return words;
 
             } else {
                 if (!letterPosition.containsKey(positions)) {
@@ -148,10 +148,10 @@ public class Main {
             return words;
         }
 
-        for (Word w : words) {
-            for (int i = 0; i < w.length; i++) {
-                if (w.s.charAt(i) == guess) {
-                    words.remove(w);
+        for (Word word : words) {
+            for (int i = 0; i < word.length; i++) {
+                if (word.s.charAt(i) == guess) {
+                    words.remove(word);
                     return words;
                 }
             }
@@ -163,9 +163,9 @@ public class Main {
     public static void guessingGUI(Set<Word> words, char guess) {
         int size = 0;
         String check = "";
-        for (Word w : words) {
-            size = w.length;
-            check = w.s;
+        for (Word word : words) {
+            size = word.length;
+            check = word.s;
         }
 
         char letters[] = check.toCharArray();
