@@ -6,6 +6,7 @@ public class Main {
 
 
     static Set<Word> dict = new HashSet<Word>();
+    static Set<Character> guessed = new HashSet<Character>();
     static char underScores[];
 
 
@@ -26,7 +27,6 @@ public class Main {
             return true;
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
-            //e.printStackTrace();
             return false;
         }
     }
@@ -74,9 +74,7 @@ public class Main {
 
             char letters[] = word.s.toCharArray();
             for (int i = 0; i < word.length; i++) {
-                //System.out.println(letters[i]);
                 if (letters[i] == guess) {
-                    //System.out.println(letters[i]);
                     positions.add(i);
                 }
 
@@ -104,8 +102,8 @@ public class Main {
             }
 
         }
-        //System.out.println(letterPosition.get(key));
         return letterPosition.get(key);
+
     }
 
     //Prompts user for word length and creates and returns a set with all words of that length
@@ -128,30 +126,19 @@ public class Main {
             build.append("_");
         }
 
-        //underScores = new char[build.toString().length()-1];
         underScores = build.toString().toCharArray().clone();
 
         for (Word word : dict) {
             if (word.length == wordLength) {
                 setOfWords.add(word);
-
-                //System.out.println(word.s + " : " + word.length);
             }
         }
         return setOfWords;
 
     }
 
-    /*
-    If there's only 2 words left in the set, pick the one that always makes the guesser guess wrong
-     */
+    //If there's only 2 words left in the set, pick the one that always makes the guesser guess wrong
     public static Set<Word> lastChoices(Set<Word> words, char guess) {
-        if (words.size() != 2) {
-            return words;
-        } else if (words.size() == 1) {
-            return words;
-        }
-
         for (Word word : words) {
             for (int i = 0; i < word.length; i++) {
                 if (word.s.charAt(i) == guess) {
@@ -191,7 +178,7 @@ public class Main {
 
         Set<Word> x = userInput();
         System.out.println("How many guesses?");
-        int guesses = 0;
+        int guesses;
 
         while (!in.hasNextInt()) {
             System.out.println("Error: not a number. Please try again.");
@@ -199,13 +186,24 @@ public class Main {
         }
         guesses = in.nextInt();
 
-        char guess = ' ';
+        char guess;
         for (int i = 0; guesses > i; guesses--) {
-            System.out.println(x);
-            if (x.size() == 1) { //TODO: if there's still letters left, switch to normal hangman
-                    for (int j = 0; guesses > j; guesses--){ //TODO: catch if already guesses a letter
+            System.out.println("Guessed Letters: " + guessed);
+            if (x.size() == 1) { //If there's still letters left, switch to normal hangman
+                    for (int j = 0; guesses > j; guesses--){
+                        //Catch if already guesses a letter
                         System.out.println("Enter a guess:");
                         guess = in.next().trim().charAt(0);
+                        guess = Character.toLowerCase(guess);
+                        while (!Character.isLetter(guess) || guessed.contains(guess)){
+                            if (!Character.isLetter(guess)){
+                                System.out.println("Not a letter. Please guess again");
+                            }else{
+                                System.out.println("Already guessed that letter. Please guess again");
+                            }
+                            guess = in.next().trim().charAt(0);
+                        }
+                        guessed.add(guess);
 
                         guessingGUI(x, guess);
 
@@ -224,19 +222,35 @@ public class Main {
             } else {
                 System.out.println("Enter a guess:");
                 guess = in.next().trim().charAt(0);
+                guess = Character.toLowerCase(guess);
+                while (!Character.isLetter(guess) || guessed.contains(guess)){
+                    if (!Character.isLetter(guess)){
+                        System.out.println("Not a letter. Please guess again");
+                    }else{
+                        System.out.println("Already guessed that letter. Please guess again");
+                    }
+                    guess = in.next().trim().charAt(0);
+                }
+                guessed.add(guess);
+
                 if (x.size() == 2) {
                     x = lastChoices(x, guess);
                 } else {
                     x = sortFamily(x, guess);
                     x = sortNumChar(x, guess);
                 }
-                System.out.println(x.size());
+                //System.out.println(x.size());
                 guessingGUI(x, guess);
 
-            } //TODO: Tell the person they lost
+            }
+        }
+
+        if (guesses == 0){
+            System.out.println("You ran out of guesses!");
+            Word y[] = x.toArray(new Word[x.size()]);
+            System.out.println("The word was: " + y[0].s);
         }
     }
-
 }
 
 
