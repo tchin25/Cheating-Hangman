@@ -166,8 +166,11 @@ public class Main {
                 underScores[i] = guess;
             }
 
+        }for(int i = 0; i < underScores.length; i++){
+            System.out.print(underScores[i]);
+            System.out.print(" ");
         }
-        System.out.println(underScores);
+        System.out.println("");
 
     }
 
