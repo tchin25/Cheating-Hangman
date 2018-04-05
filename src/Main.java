@@ -8,6 +8,7 @@ public class Main {
     static Set<Word> dict = new HashSet<Word>();
     static Set<Character> guessed = new HashSet<Character>();
     static char underScores[];
+    static int guesses;
 
 
     public static void main(String[] args) {
@@ -161,9 +162,15 @@ public class Main {
 
         char letters[] = check.toCharArray();
 
+        boolean guessToggle = false;
+
         for(int i = 0; i < size; i++){
             if(guess == letters[i]) {
                 underScores[i] = guess;
+                if (!guessToggle){
+                    guesses++;
+                    guessToggle = true;
+                }
             }
 
         }for(int i = 0; i < underScores.length; i++){
@@ -181,7 +188,6 @@ public class Main {
 
         Set<Word> x = userInput();
         System.out.println("How many guesses?");
-        int guesses;
 
         while (!in.hasNextInt()) {
             System.out.println("Error: not a number. Please try again.");
